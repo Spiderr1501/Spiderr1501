@@ -11,19 +11,19 @@
 #define IN7 5
 #define IN8 6
 
-AccelStepper LeftMotor(8, IN1, IN3, IN2, IN4);
-AccelStepper RightMotor(8, IN5, IN7, IN6, IN8);
+AccelStepper RightMotor(8, IN1, IN3, IN2, IN4);
+AccelStepper LeftMotor(8, IN5, IN7, IN6, IN8);
 
 void setup(){
-  LeftMotor.setMaxSpeed(900.0);
+  LeftMotor.setMaxSpeed(1600.0);
   LeftMotor.setAcceleration(1000.0);
   //LeftMotor.setSpeed(200);
   LeftMotor.moveTo(2000);
 
-  RightMotor.setMaxSpeed(900.0);
-  RightMotor.setAcceleration(1000.0);
+  RightMotor.setMaxSpeed(-1600.0);
+  RightMotor.setAcceleration(-1000.0);
   //RightMotor.setSpeed(200);
-  RightMotor.moveTo(2000);
+  RightMotor.moveTo(-2000);
 }
 
 void loop(){
