@@ -11,28 +11,37 @@
 #define IN7 5
 #define IN8 6
 
-AccelStepper RightMotor(8, IN1, IN3, IN2, IN4);
-AccelStepper LeftMotor(8, IN5, IN7, IN6, IN8);
+AccelStepper LeftMotor(8, IN1, IN3, IN2, IN4);
+AccelStepper RightMotor(8, IN5, IN7, IN6, IN8);
 
 void setup(){
   LeftMotor.setMaxSpeed(1600.0);
   LeftMotor.setAcceleration(1000.0);
-  //LeftMotor.setSpeed(200);
-  LeftMotor.moveTo(2000);
-
-  RightMotor.setMaxSpeed(-1600.0);
-  RightMotor.setAcceleration(-1000.0);
-  //RightMotor.setSpeed(200);
-  RightMotor.moveTo(-2000);
+  //LeftMotor.setSpeed(600);
+  //LeftMotor.moveTo(2000);  // 1000 = 5 cm
+ 
+  RightMotor.setMaxSpeed(1600.0);
+  RightMotor.setAcceleration(1000.0);
+  //RightMotor.setSpeed(-600);
+  //RightMotor.moveTo(-2000);
 }
 
-void loop(){
-  // Изменяем направление, если пройдено заданное число шагов
-  if(LeftMotor.distanceToGo()==0)
-    LeftMotor.moveTo(-LeftMotor.currentPosition());
-  LeftMotor.run();
+void Down(int k){
+  LeftMotor.moveTo(k * 1000);
+  RightMotor.moveTo(k * (-1000));
+  
+}
 
-  if(RightMotor.distanceToGo()==0)
-    RightMotor.moveTo(-RightMotor.currentPosition());
-  RightMotor.run();
+void loop(){ 
+  // Изменяем направление, если пройдено заданное число шагов
+//  if(LeftMotor.distanceToGo() == 0)
+//    LeftMotor.moveTo(-LeftMotor.currentPosition());
+
+//  if(RightMotor.distanceToGo()==0)
+//    RightMotor.moveTo(-RightMotor.currentPosition());
+
+    Down(5);
+    LeftMotor.run();
+    RightMotor.run();
+    //delay(5000);
 }
