@@ -2,7 +2,7 @@
 #include <AccelStepper.h>
 // создаем экземпляр AccelStepper
 #define IN1 7
-#define IN2 9
+#define IN2 8
 #define IN3 10
 #define IN4 11
 
@@ -11,37 +11,47 @@
 #define IN7 5
 #define IN8 6
 
-AccelStepper LeftMotor(8, IN1, IN3, IN2, IN4);
-AccelStepper RightMotor(8, IN5, IN7, IN6, IN8);
+#define IN9 1
+
+AccelStepper RightMotor(8, IN1, IN3, IN2, IN4);
+AccelStepper LeftMotor(8, IN5, IN7, IN6, IN8);
 
 void setup(){
+  Serial.begin(9600);
+  pinMode(IN9, OUTPUT);
+  
   LeftMotor.setMaxSpeed(1600.0);
   LeftMotor.setAcceleration(1000.0);
-  //LeftMotor.setSpeed(600);
+  LeftMotor.setSpeed(1600);
   //LeftMotor.moveTo(2000);  // 1000 = 5 cm
  
   RightMotor.setMaxSpeed(1600.0);
   RightMotor.setAcceleration(1000.0);
-  //RightMotor.setSpeed(-600);
+  RightMotor.setSpeed(1600);
   //RightMotor.moveTo(-2000);
 }
 
 void Down(int k){
-  LeftMotor.moveTo(k * 1000);
-  RightMotor.moveTo(k * (-1000));
+  LeftMotor.move(k * (-1000));
+  RightMotor.move(k * (1000));
   
 }
 
-void loop(){ 
+void loop(){
   // Изменяем направление, если пройдено заданное число шагов
-//  if(LeftMotor.distanceToGo() == 0)
-//    LeftMotor.moveTo(-LeftMotor.currentPosition());
+//    if(LeftMotor.distanceToGo() == 0)
+//      LeftMotor.moveTo(-LeftMotor.currentPosition());
+//
+//    if(RightMotor.distanceToGo() == 0)
+//      RightMotor.moveTo(-RightMotor.currentPosition());
 
-//  if(RightMotor.distanceToGo()==0)
-//    RightMotor.moveTo(-RightMotor.currentPosition());
-
-    Down(5);
+    
+    digitalWrite(IN9, HIGH);
+    
+    Down(10);
     LeftMotor.run();
     RightMotor.run();
-    //delay(5000);
+    //LeftMotor.setCurrentPosition(0);
+    //RightMotor.setCurrentPosition(0);
+    
 }
